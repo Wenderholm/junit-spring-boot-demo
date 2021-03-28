@@ -13,20 +13,16 @@ public class CurrencyService {
         this.restTemplate = restTemplateBuilder.build();
     }
 
-    public Float getRate() {
-        String rateJSON = getRateAsJSON();
+    public Float getRate(String cash) {
+        String rateJSON = getRateAsJSON(cash);
         String midNode = rateJSON.split("mid\":")[1].split("}")[0];
 
         return Float.parseFloat(midNode);
     }
 
-    /**
-     * Pobiera aktualny kurs ze strony NBP --> http://api.nbp.pl/en.html.
-     *
-     * @return JSON
-     */
-    public String getRateAsJSON() {
-        String url = "http://api.nbp.pl/api/exchangerates/rates/a/usd?format=json";
+
+    public String getRateAsJSON(String cash) {
+        String url = "http://api.nbp.pl/api/exchangerates/rates/a/"+ cash + "?format=json";
         return this.restTemplate.getForObject(url, String.class);
     }
 }

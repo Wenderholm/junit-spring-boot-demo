@@ -16,17 +16,17 @@ public class ExchangeController {
     }
 
     @GetMapping("/rate")
-    public Float rate() {
-        return currencyService.getRate();
+    public Float rate(@RequestParam(value = "typeCash") String cash) {
+        return currencyService.getRate(cash);
     }
 
     @GetMapping("/inPLN")
-    public Float inPLN(@RequestParam(value = "amount") Float amount) {
-        return moneyService.getInPLN(amount);
+    public Float inPLN(@RequestParam(value = "amount") Float amount, @RequestParam(value = "typeCash") String type) {
+        return moneyService.getInPLN(amount, type);
     }
 
     @GetMapping("/exchange")
-    public Exchange exchange(@RequestParam(value = "amount") Float amount) {
-        return new Exchange(amount, moneyService.getInPLN(amount));
+    public Exchange exchange(@RequestParam(value = "amount") Float amount, @RequestParam(value = "typeCash") String type) {
+        return new Exchange(amount, moneyService.getInPLN(amount,type));
     }
 }

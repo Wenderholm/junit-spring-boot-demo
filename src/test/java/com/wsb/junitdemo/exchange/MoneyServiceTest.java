@@ -10,6 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -22,13 +23,16 @@ class MoneyServiceTest {
     @InjectMocks
     MoneyService moneyService;
 
-//    @Test
-//    void returns_amount_in_pln() {
-//        when(currencyService.getRate()).thenReturn(1.5f);
-//
-//        assertAll("exchanges",
-//                () -> assertEquals(3f, moneyService.getInPLN(2f)),
-//                () -> assertEquals(0, moneyService.getInPLN(0f))
-//        );
-//    }
+    @Test
+    void returns_amount_in_pln() {
+        lenient().when(currencyService.getRate("USD")).thenReturn(1.5f);
+        lenient().when(currencyService.getRate("EUR")).thenReturn(3f);
+
+        assertAll("exchanges",
+                () -> assertEquals(3f, moneyService.getInPLN(2f,"USD")),
+                () -> assertEquals(0, moneyService.getInPLN(0f,"USD")),
+                () -> assertEquals(3f, moneyService.getInPLN(1f,"EUR")),
+                () -> assertEquals(0, moneyService.getInPLN(0f,"EUR"))
+        );
+    }
 }

@@ -1,0 +1,17 @@
+### kurs waluty japońskiej
+GET http://localhost:8080/rate?typeCash=JPY
+### kurs waluty amerykańskiej
+GET http://localhost:8080/rate?typeCash=USD
+### kurs waluty euro
+GET http://localhost:8080/rate?typeCash=EUR
+
+### przeliczenie 1 euro na zł
+GET http://localhost:8080/inPLN?amount=1&typeCash=EUR
+### przeliczenie 1 dolara na zł
+GET http://localhost:8080/inPLN?amount=2&typeCash=USD
+
+### zamiana z uzyciem exchange 2 funty na zł
+GET http://localhost:8080/exchange?amount=2&typeCash=GBP
+### zmiana z użyciem exchange 1.5 dolara na zł
+GET http://localhost:8080/exchange?amount=1.5&typeCash=USD
+
